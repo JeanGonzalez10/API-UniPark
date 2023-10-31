@@ -3,7 +3,7 @@ import { pool } from "../../db/dbConnection.js";
 const getEmpleado = async (req, res) => {
 	try {
 		const { cedula } = req.params;
-		const [rows] = await pool.query("SELECT * FROM empleado WHERE cedula = ?", [
+		const [rows] = await pool.query("SELECT * FROM EMPLEADO WHERE cedula = ?", [
 			cedula,
 		]);
 		if (rows.length === 0) {
@@ -18,7 +18,7 @@ const getEmpleado = async (req, res) => {
 
 const getEmpleados = async (req, res) => {
 	try {
-		const [rows] = await pool.query("SELECT * FROM empleado");
+		const [rows] = await pool.query("SELECT * FROM EMPLEADO");
 		res.json(rows);
 	} catch (er) {
 		res.status(500).json({ message: "Error en el servidor", error: er });
@@ -30,7 +30,7 @@ const createEmpleado = async (req, res) => {
 		const { cedula, nombres, apellidos, celular, id_tipo_empleado } = req.body;
 
 		await pool.query(
-			"INSERT INTO empleado (cedula, nombres, apellidos, celular, id_tipo_empleado) VALUES (?, ?, ?, ?, ?)",
+			"INSERT INTO EMPLEADO (cedula, nombres, apellidos, celular, id_tipo_empleado) VALUES (?, ?, ?, ?, ?)",
 			[cedula, nombres, apellidos, celular, id_tipo_empleado]
 		);
 
@@ -52,14 +52,14 @@ const updateEmpleado = async (req, res) => {
 		const { nombres, apellidos, celular, id_tipo_empleado } = req.body;
 
 		const [result] = await pool.query(
-			"UPDATE empleado SET nombres = IFNULL(?, nombres), apellidos = IFNULL(?, apellidos), celular = IFNULL(?, celular), id_tipo_empleado = IFNULL(?, id_tipo_empleado) WHERE cedula = ?",
+			"UPDATE EMPLEADO SET nombres = IFNULL(?, nombres), apellidos = IFNULL(?, apellidos), celular = IFNULL(?, celular), id_tipo_empleado = IFNULL(?, id_tipo_empleado) WHERE cedula = ?",
 			[nombres, apellidos, celular, id_tipo_empleado, cedula]
 		);
 		if (result.affectedRows === 0) {
 			return res.status(404).json({ message: "Empleado no encontrado" });
 		} else {
 			const [updatedEmpleado] = await pool.query(
-				"SELECT * FROM empleado WHERE cedula = ?",
+				"SELECT * FROM EMPLEADO WHERE cedula = ?",
 				[cedula]
 			);
 			res.json(updatedEmpleado[0]);
@@ -72,7 +72,7 @@ const updateEmpleado = async (req, res) => {
 const deleteEmpleado = async (req, res) => {
 	try {
 		const { cedula } = req.params;
-		const [result] = await pool.query("DELETE FROM empleado WHERE cedula = ?", [
+		const [result] = await pool.query("DELETE FROM EMPLEADO WHERE cedula = ?", [
 			cedula,
 		]);
 		if (result.affectedRows === 0) {

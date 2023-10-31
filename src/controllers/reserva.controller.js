@@ -4,7 +4,7 @@ const getReserva = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const [rows] = await pool.query(
-			"SELECT * FROM reserva WHERE id_reserva = ?",
+			"SELECT * FROM RESERVA WHERE id_reserva = ?",
 			[id]
 		);
 		if (rows.length === 0) {
@@ -19,7 +19,7 @@ const getReserva = async (req, res) => {
 
 const getReservas = async (req, res) => {
 	try {
-		const [rows] = await pool.query("SELECT * FROM reserva");
+		const [rows] = await pool.query("SELECT * FROM RESERVA");
 		if (rows.length === 0) {
 			return res.status(404).json({ message: "Reservas no encontradas" });
 		} else {
@@ -35,7 +35,7 @@ const createReserva = async (req, res) => {
 		const { fecha_reserva, placa_vehiculo, id_celda } = req.body;
 
 		const [rows] = await pool.query(
-			"INSERT INTO reserva (fecha_reserva, placa_vehiculo, id_celda) VALUES (?, ?, ?)",
+			"INSERT INTO RESERVA (fecha_reserva, placa_vehiculo, id_celda) VALUES (?, ?, ?)",
 			[fecha_reserva, placa_vehiculo, id_celda]
 		);
 
@@ -58,7 +58,7 @@ const updateReserva = async (req, res) => {
 		const { fecha_ingreso, fecha_salida } = req.body;
 
 		const [result] = await pool.query(
-			"UPDATE reserva SET fecha_ingreso = IFNULL(?, fecha_ingreso), fecha_salida = IFNULL(?, fecha_salida) WHERE id_reserva = ?",
+			"UPDATE RESERVA SET fecha_ingreso = IFNULL(?, fecha_ingreso), fecha_salida = IFNULL(?, fecha_salida) WHERE id_reserva = ?",
 			[fecha_ingreso, fecha_salida, id]
 		);
 
@@ -66,7 +66,7 @@ const updateReserva = async (req, res) => {
 			return res.status(404).json({ message: "Reserva no encontrada" });
 		} else {
 			const [updatedReserva] = await pool.query(
-				"SELECT * FROM reserva WHERE id_reserva = ?",
+				"SELECT * FROM RESERVA WHERE id_reserva = ?",
 				[id]
 			);
 			res.json(updatedReserva[0]);
@@ -80,7 +80,7 @@ const deleteReserva = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const [result] = await pool.query(
-			"DELETE FROM reserva WHERE id_reserva = ?",
+			"DELETE FROM RESERVA WHERE id_reserva = ?",
 			[id]
 		);
 		if (result.affectedRows === 0) {

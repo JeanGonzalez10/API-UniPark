@@ -4,7 +4,7 @@ const getParqueadero = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const [rows] = await pool.query(
-			"SELECT * FROM parqueadero WHERE id_celda = ?",
+			"SELECT * FROM PARQUEADERO WHERE id_celda = ?",
 			[id]
 		);
 		if (rows.length === 0) {
@@ -19,7 +19,7 @@ const getParqueadero = async (req, res) => {
 
 const getParqueaderos = async (req, res) => {
 	try {
-		const [rows] = await pool.query("SELECT * FROM parqueadero");
+		const [rows] = await pool.query("SELECT * FROM PARQUEADERO");
 		res.json(rows);
 	} catch (er) {
 		res.status(500).json({ message: "Error en el servidor", error: er });
@@ -32,7 +32,7 @@ const updateParqueadero = async (req, res) => {
 		const { id_estado_celda } = req.body;
 
 		const [result] = await pool.query(
-			"UPDATE parqueadero SET id_estado_celda = ? WHERE id_celda = ?",
+			"UPDATE PARQUEADERO SET id_estado_celda = ? WHERE id_celda = ?",
 			[id_estado_celda, id]
 		);
 
@@ -40,7 +40,7 @@ const updateParqueadero = async (req, res) => {
 			return res.status(404).json({ message: "Parqueadero no encontrado" });
 		} else {
 			const [updatedParqueadero] = await pool.query(
-				"SELECT * FROM parqueadero WHERE id_celda = ?",
+				"SELECT * FROM PARQUEADERO WHERE id_celda = ?",
 				[id]
 			);
 			res.json(updatedParqueadero[0]);

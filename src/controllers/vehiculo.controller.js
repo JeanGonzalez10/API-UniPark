@@ -4,7 +4,7 @@ const getVehiculo = async (req, res) => {
 	try {
 		const { placa_vehiculo } = req.params;
 		const [rows] = await pool.query(
-			"SELECT * FROM vehiculo WHERE placa_vehiculo = ?",
+			"SELECT * FROM VEHICULO WHERE placa_vehiculo = ?",
 			[placa_vehiculo]
 		);
 		if (rows.length === 0) {
@@ -19,7 +19,7 @@ const getVehiculo = async (req, res) => {
 
 const getVehiculos = async (req, res) => {
 	try {
-		const [rows] = await pool.query("SELECT * FROM vehiculo");
+		const [rows] = await pool.query("SELECT * FROM VEHICULO");
 		res.json(rows);
 	} catch (er) {
 		res.status(500).json({ message: "Error en el servidor", error: er });
@@ -31,7 +31,7 @@ const createVehiculo = async (req, res) => {
 		const { placa_vehiculo, id_tipo_vehiculo, id_propietario } = req.body;
 
 		await pool.query(
-			"INSERT INTO vehiculo (placa_vehiculo, id_tipo_vehiculo, id_propietario) VALUES (?, ?, ?)",
+			"INSERT INTO VEHICULO (placa_vehiculo, id_tipo_vehiculo, id_propietario) VALUES (?, ?, ?)",
 			[placa_vehiculo, id_tipo_vehiculo, id_propietario]
 		);
 
@@ -49,7 +49,7 @@ const deleteVehiculo = async (req, res) => {
 	try {
 		const { placa_vehiculo } = req.params;
 		const [result] = await pool.query(
-			"DELETE FROM vehiculo WHERE placa_vehiculo = ?",
+			"DELETE FROM VEHICULO WHERE placa_vehiculo = ?",
 			[placa_vehiculo]
 		);
 		if (result.affectedRows === 0) {

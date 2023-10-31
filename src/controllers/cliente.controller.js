@@ -3,7 +3,7 @@ import { pool } from "../../db/dbConnection.js";
 const getCliente = async (req, res) => {
 	try {
 		const { cedula } = req.params;
-		const [rows] = await pool.query("SELECT * FROM cliente WHERE cedula = ?", [
+		const [rows] = await pool.query("SELECT * FROM CLIENTE WHERE cedula = ?", [
 			cedula,
 		]);
 		if (rows.length === 0) {
@@ -18,7 +18,7 @@ const getCliente = async (req, res) => {
 
 const getClientes = async (req, res) => {
 	try {
-		const [rows] = await pool.query("SELECT * FROM cliente");
+		const [rows] = await pool.query("SELECT * FROM CLIENTE");
 		res.json(rows);
 	} catch (er) {
 		res.status(500).json({ message: "Error en el servidor", error: er });
@@ -30,7 +30,7 @@ const createCliente = async (req, res) => {
 		const { cedula, nombre, apellidos, celular } = req.body;
 
 		await pool.query(
-			"INSERT INTO cliente (cedula, nombres, apellidos, celular) VALUES (?, ?, ?, ?)",
+			"INSERT INTO CLIENTE (cedula, nombres, apellidos, celular) VALUES (?, ?, ?, ?)",
 			[cedula, nombre, apellidos, celular]
 		);
 
@@ -51,7 +51,7 @@ const updateCliente = async (req, res) => {
 		const { nombres, apellidos, celular } = req.body;
 
 		const [result] = await pool.query(
-			"UPDATE cliente SET nombres = IFNULL(?, nombres), apellidos = IFNULL(?, apellidos), celular = IFNULL(?, celular) WHERE cedula = ?",
+			"UPDATE CLIENTE SET nombres = IFNULL(?, nombres), apellidos = IFNULL(?, apellidos), celular = IFNULL(?, celular) WHERE cedula = ?",
 			[nombres, apellidos, celular, cedula]
 		);
 
@@ -59,7 +59,7 @@ const updateCliente = async (req, res) => {
 			return res.status(404).json({ message: "Cliente no encontrado" });
 		} else {
 			const [updatedCliente] = await pool.query(
-				"SELECT * FROM cliente WHERE cedula = ?",
+				"SELECT * FROM CLIENTE WHERE cedula = ?",
 				[cedula]
 			);
 			res.json(updatedCliente[0]);
@@ -72,7 +72,7 @@ const updateCliente = async (req, res) => {
 const deleteCliente = async (req, res) => {
 	try {
 		const { cedula } = req.params;
-		const [result] = await pool.query("DELETE FROM cliente WHERE cedula = ?", [
+		const [result] = await pool.query("DELETE FROM CLIENTE WHERE cedula = ?", [
 			cedula,
 		]);
 		if (result.affectedRows === 0) {

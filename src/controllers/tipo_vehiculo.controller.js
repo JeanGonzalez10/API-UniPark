@@ -4,7 +4,7 @@ const getTipoVehiculo = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const [rows] = await pool.query(
-			"SELECT * FROM tipo_vehiculo WHERE id_tipo = ?",
+			"SELECT * FROM TIPO_VEHICULO WHERE id_tipo = ?",
 			[id]
 		);
 		res.json(rows[0]);
@@ -15,7 +15,7 @@ const getTipoVehiculo = async (req, res) => {
 
 const getTipoVehiculos = async (req, res) => {
 	try {
-		const [rows] = await pool.query("SELECT * FROM tipo_vehiculo");
+		const [rows] = await pool.query("SELECT * FROM TIPO_VEHICULO");
 		res.json(rows);
 	} catch (er) {
 		res.status(500).json({ message: "Error en el servidor", error: er });

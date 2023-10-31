@@ -4,7 +4,7 @@ const getLavadero = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const [rows] = await pool.query(
-			"SELECT * FROM lavadero WHERE id_solicitud = ?",
+			"SELECT * FROM LAVADERO WHERE id_solicitud = ?",
 			[id]
 		);
 		if (rows.length === 0) {
@@ -21,7 +21,7 @@ const getLavadero = async (req, res) => {
 
 const getLavaderos = async (req, res) => {
 	try {
-		const [rows] = await pool.query("SELECT * FROM lavadero");
+		const [rows] = await pool.query("SELECT * FROM LAVADERO");
 		if (rows.length === 0) {
 			return res
 				.status(404)
@@ -40,7 +40,7 @@ const createLavadero = async (req, res) => {
 			req.body;
 
 		const [rows] = await pool.query(
-			"INSERT INTO lavadero (placa_vehiculo, fecha_solicitud, id_tipo_lavado, tarifa) VALUES (?, ?, ?, ?)",
+			"INSERT INTO LAVADERO (placa_vehiculo, fecha_solicitud, id_tipo_lavado, tarifa) VALUES (?, ?, ?, ?)",
 			[placa_vehiculo, fecha_solicitud, id_tipo_lavado, tarifa]
 		);
 
@@ -63,7 +63,7 @@ const updateLavadero = async (req, res) => {
 		const { id_empleado } = req.body;
 
 		const [result] = await pool.query(
-			"UPDATE lavadero SET id_empleado = ? WHERE id_solicitud = ?",
+			"UPDATE LAVADERO SET id_empleado = ? WHERE id_solicitud = ?",
 			[id_empleado, id]
 		);
 		if (result.affectedRows === 0) {
@@ -72,7 +72,7 @@ const updateLavadero = async (req, res) => {
 				.json({ message: "Servicio de lavado no encontrado" });
 		} else {
 			const [updatedLavadero] = await pool.query(
-				"SELECT * FROM lavadero WHERE id_solicitud = ?",
+				"SELECT * FROM LAVADERO WHERE id_solicitud = ?",
 				[id]
 			);
 			res.json(updatedLavadero[0]);
@@ -86,7 +86,7 @@ const deleteLavadero = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const [result] = await pool.query(
-			"DELETE FROM lavadero WHERE id_solicitud = ?",
+			"DELETE FROM LAVADERO WHERE id_solicitud = ?",
 			[id]
 		);
 		if (result.affectedRows === 0) {

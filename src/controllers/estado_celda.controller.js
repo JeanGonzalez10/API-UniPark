@@ -4,7 +4,7 @@ const getEstadoCelda = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const [rows] = await pool.query(
-			"SELECT * FROM estado_celda WHERE id_estado = ?",
+			"SELECT * FROM ESTADO_CELDA WHERE id_estado = ?",
 			[id]
 		);
 		res.json(rows[0]);
@@ -15,7 +15,7 @@ const getEstadoCelda = async (req, res) => {
 
 const getEstadoCeldas = async (req, res) => {
 	try {
-		const [rows] = await pool.query("SELECT * FROM estado_celda");
+		const [rows] = await pool.query("SELECT * FROM ESTADO_CELDA");
 		res.json(rows);
 	} catch (er) {
 		res.status(500).json({ message: "Error en el servidor", error: er });

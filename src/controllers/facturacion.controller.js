@@ -4,7 +4,7 @@ const getFacturacion = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const [rows] = await pool.query(
-			"SELECT * FROM facturacion WHERE id_facturacion = ?",
+			"SELECT * FROM FACTURACION WHERE id_facturacion = ?",
 			[id]
 		);
 		if (rows.length === 0) {
@@ -19,7 +19,7 @@ const getFacturacion = async (req, res) => {
 
 const getFacturaciones = async (req, res) => {
 	try {
-		const [rows] = await pool.query("SELECT * FROM facturacion");
+		const [rows] = await pool.query("SELECT * FROM FACTURACION");
 		if (rows.length === 0) {
 			return res.status(404).json({ message: "Facturaciones no encontradas" });
 		} else {
@@ -35,7 +35,7 @@ const createFacturacion = async (req, res) => {
 		const { fecha_factura, id_cliente } = req.body;
 
 		const [rows] = await pool.query(
-			"INSERT INTO facturacion (fecha_factura, id_cliente) VALUES (?, ?)",
+			"INSERT INTO FACTURACION (fecha_factura, id_cliente) VALUES (?, ?)",
 			[fecha_factura, id_cliente]
 		);
 
@@ -58,7 +58,7 @@ const updateFacturacion = async (req, res) => {
 		const { id_reserva, id_solicitud_lavado, valor_total } = req.body;
 
 		const [result] = await pool.query(
-			"UPDATE facturacion SET id_reserva = IFNULL(?, id_reserva), id_solicitud_lavado = IFNULL(?, id_solicitud_lavado), valor_total = IFNULL(?, valor_total) WHERE id_facturacion = ?",
+			"UPDATE FACTURACION SET id_reserva = IFNULL(?, id_reserva), id_solicitud_lavado = IFNULL(?, id_solicitud_lavado), valor_total = IFNULL(?, valor_total) WHERE id_facturacion = ?",
 			[id_reserva, id_solicitud_lavado, valor_total, id]
 		);
 
@@ -66,7 +66,7 @@ const updateFacturacion = async (req, res) => {
 			return res.status(404).json({ message: "Facturacion no encontrada" });
 		} else {
 			const [updatedFacturacion] = await pool.query(
-				"SELECT * FROM facturacion WHERE id_facturacion = ?",
+				"SELECT * FROM FACTURACION WHERE id_facturacion = ?",
 				[id]
 			);
 			res.json(updatedFacturacion[0]);
@@ -76,7 +76,7 @@ const updateFacturacion = async (req, res) => {
 	}
 };
 
-const deleteFacturacion = (req, res) => res.send("eliminando facturacion");
+const deleteFacturacion = (req, res) => res.send("eliminando FACTURACION");
 
 export {
 	getFacturacion,
