@@ -1,10 +1,10 @@
-import { pool } from "../../db/dbConnection.js";
+import { pool } from "../../../db/dbConnection.js";
 
-const getTipoCelda = async (req, res) => {
+const getTipoEmpleado = async (req, res) => {
 	try {
 		const { id } = req.params;
 		const [rows] = await pool.query(
-			"SELECT * FROM TIPO_CELDA WHERE id_tipo = ?",
+			"SELECT * FROM TIPO_EMPLEADO WHERE id_tipo = ?",
 			[id]
 		);
 		res.json(rows[0]);
@@ -13,13 +13,13 @@ const getTipoCelda = async (req, res) => {
 	}
 };
 
-const getTipoCeldas = async (req, res) => {
+const getTipoEmpleados = async (req, res) => {
 	try {
-		const [rows] = await pool.query("SELECT * FROM TIPO_CELDA");
+		const [rows] = await pool.query("SELECT * FROM TIPO_EMPLEADO");
 		res.json(rows);
 	} catch (er) {
 		res.status(500).json({ message: "Error en el servidor", error: er });
 	}
 };
 
-export { getTipoCelda, getTipoCeldas };
+export { getTipoEmpleado, getTipoEmpleados };

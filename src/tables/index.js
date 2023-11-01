@@ -9,10 +9,10 @@ import tipoCeldaRoutes from "./routes/tipo_celda.routes.js";
 import tipoEmpleadoRoutes from "./routes/tipo_empleado.routes.js";
 import tipoLavadoRoutes from "./routes/tipo_lavado.routes.js";
 import tipoVehiculoRoutes from "./routes/tipo_vehiculo.routes.js";
-import usuarioRoutes from "./routes/usuario.routes.js";
 import vehiculoRoutes from "./routes/vehiculo.routes.js";
+import usuarioRoutes from "./routes/usuario.routes.js"
 
-export const appRoutes = [
+export default Routes = [
 	clienteRoutes,
 	empleadoRoutes,
 	estadoCeldaRoutes,
@@ -24,6 +24,6 @@ export const appRoutes = [
 	tipoEmpleadoRoutes,
 	tipoLavadoRoutes,
 	tipoVehiculoRoutes,
-	usuarioRoutes,
 	vehiculoRoutes,
+	usuarioRoutes,
 ];

@@ -1,4 +1,4 @@
-import { pool } from "../../db/dbConnection.js";
+import { pool } from "../../../db/dbConnection.js";
 
 const getTipoVehiculo = async (req, res) => {
 	try {

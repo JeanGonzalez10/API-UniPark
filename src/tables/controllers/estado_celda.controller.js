@@ -1,4 +1,4 @@
-import { pool } from "../../db/dbConnection.js";
+import { pool } from "../../../db/dbConnection.js";
 
 const getEstadoCelda = async (req, res) => {
 	try {
