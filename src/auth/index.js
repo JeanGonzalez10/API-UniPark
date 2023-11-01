@@ -1,6 +1,6 @@
-import usuarioRoutes from "./routes/usuario.routes.js";
+import authRoutes from "./routes/auth.routes.js";
 
 
 export default Routes = [
-	usuarioRoutes
+	authRoutes
 ];

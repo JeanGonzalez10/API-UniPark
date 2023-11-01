@@ -6,7 +6,9 @@ const app = Express();
 
 app.use(Express.json());
 
-app.use("/api/", [authRoute, tablesRoute]);
+app.use("/api/auth", authRoute);
+
+app.use("/api/", tablesRoute);
 
 app.use((req, res) => {
 	res.status(404).json({ message: "Not found" });

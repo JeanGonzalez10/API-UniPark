@@ -12,11 +12,7 @@ const updateUsuario = async (req, res) => {
 		if (result.affectedRows === 0) {
 			return res.status(404).json({ message: "Usuario no encontrado" });
 		} else {
-			const [updatedUsuario] = await pool.query(
-				"SELECT * FROM USUARIO WHERE id_usuario = ?",
-				[id_usuario]
-			);
-			res.json(updatedUsuario[0]);
+			res.status(201).json({ message: "Usuario actualizado" });
 		}
 	} catch (er) {
 		res.status(500).json({ message: "Error en el servidor", error: er });
