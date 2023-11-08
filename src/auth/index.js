@@ -1,8 +1,8 @@
 import authRoutes from "./routes/auth.routes.js";
 
 
-const Route = [
+const Routes = [
 	authRoutes,
 ];
 
-export default Route;
+export default Routes;

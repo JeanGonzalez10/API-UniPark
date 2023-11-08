@@ -12,7 +12,7 @@ import tipoVehiculoRoutes from "./routes/tipo_vehiculo.routes.js";
 import vehiculoRoutes from "./routes/vehiculo.routes.js";
 import usuarioRoutes from "./routes/usuario.routes.js"
 
-export default Routes = [
+const Routes = [
 	clienteRoutes,
 	empleadoRoutes,
 	estadoCeldaRoutes,
@@ -27,3 +27,5 @@ export default Routes = [
 	vehiculoRoutes,
 	usuarioRoutes,
 ];
+
+export default Routes;
