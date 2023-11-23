@@ -27,11 +27,11 @@ const getClientes = async (req, res) => {
 
 const createCliente = async (req, res) => {
 	try {
-		const { cedula, nombre, apellidos, celular } = req.body;
+		const { cedula, nombres, apellidos, celular } = req.body;
 
 		await pool.query(
 			"INSERT INTO CLIENTE (cedula, nombres, apellidos, celular) VALUES (?, ?, ?, ?)",
-			[cedula, nombre, apellidos, celular]
+			[cedula, nombres, apellidos, celular]
 		);
 
 		res.status(201).send({
