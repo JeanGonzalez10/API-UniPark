@@ -1,9 +1,11 @@
 import Express from "express";
 import authRoute from "./auth/index.js";
-import tablesRoute from "./tables/index.js"
+import tablesRoute from "./tables/index.js";
+import cors from "cors";
 
 const app = Express();
 
+app.use(cors());
 app.use(Express.json());
 
 app.use("/api/auth", authRoute);
