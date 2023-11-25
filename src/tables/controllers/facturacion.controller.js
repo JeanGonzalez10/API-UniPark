@@ -35,7 +35,7 @@ const createFacturacion = async (req, res) => {
 		const { fecha, id_cliente, id_reserva } = req.body;
 
 		const [rows] = await pool.query(
-			"INSERT INTO FACTURACION (fecha, id_cliente, id_reserva) VALUES (?, ?)",
+			"INSERT INTO FACTURACION (fecha, id_cliente, id_reserva) VALUES (?, ?, ?)",
 			[fecha, id_cliente, id_reserva]
 		);
 
