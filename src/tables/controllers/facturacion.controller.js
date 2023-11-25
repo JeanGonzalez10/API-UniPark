@@ -32,16 +32,16 @@ const getFacturaciones = async (req, res) => {
 
 const createFacturacion = async (req, res) => {
 	try {
-		const { fecha_factura, id_cliente } = req.body;
+		const { fecha, id_cliente, id_reserva } = req.body;
 
 		const [rows] = await pool.query(
-			"INSERT INTO FACTURACION (fecha_factura, id_cliente) VALUES (?, ?)",
-			[fecha_factura, id_cliente]
+			"INSERT INTO FACTURACION (fecha, id_cliente, id_reserva) VALUES (?, ?)",
+			[fecha, id_cliente, id_reserva]
 		);
 
 		res.status(201).send({
 			id_facturacion: rows.insertId,
-			id_reserva: null,
+			id_reserva: rows.id_reserva,
 			id_solicitud_lavado: null,
 			fecha_factura,
 			valor_total: null,
