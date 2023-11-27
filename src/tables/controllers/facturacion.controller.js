@@ -41,9 +41,9 @@ const createFacturacion = async (req, res) => {
 
 		res.status(201).send({
 			id_facturacion: rows.insertId,
-			id_reserva: rows.id_reserva,
+			id_reserva,
 			id_solicitud_lavado: null,
-			fecha_factura,
+			fecha,
 			valor_total: null,
 			id_cliente,
 		});
