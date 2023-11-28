@@ -14,8 +14,7 @@ CREATE TABLE HISTORICO_USUARIO (
 	id_usuario BIGINT(20) NOT NULL,
 	nick varchar(15) NOT NULL,
 	clave varchar(20) NOT NULL,
-	fecha_eliminacion DATE NOT NULL,
-	PRIMARY KEY (id_usuario)
+	fecha_eliminacion DATE NOT NULL
 );
 
 CREATE TABLE TIPO_EMPLEADO (
@@ -28,7 +27,7 @@ CREATE TABLE EMPLEADO (
 	cedula BIGINT(20)  NOT NULL,
 	nombres varchar(20) NOT NULL,
     apellidos varchar(20) NOT NULL,
-	celular FLOAT(20) NOT NULL,
+	celular varchar(20) NOT NULL,
 	id_tipo_empleado INT(2) NOT NULL,
 	PRIMARY KEY (cedula)
 );
@@ -37,10 +36,9 @@ CREATE TABLE HISTORICO_EMPLEADO (
 	cedula BIGINT(20)  NOT NULL,
 	nombres varchar(20) NOT NULL,
     apellidos varchar(20) NOT NULL,
-	celular FLOAT(20) NOT NULL,
+	celular varchar(20) NOT NULL,
 	id_tipo_empleado INT(2) NOT NULL,
-	fecha_eliminacion DATE NOT NULL,
-	PRIMARY KEY (cedula)
+	fecha_eliminacion DATE NOT NULL
 );
 
 ALTER TABLE EMPLEADO ADD FOREIGN KEY (id_tipo_empleado) REFERENCES TIPO_EMPLEADO(id_tipo);
@@ -50,7 +48,7 @@ CREATE TABLE CLIENTE (
 	cedula BIGINT(20)  NOT NULL,
 	nombres varchar(20) NOT NULL,
     apellidos varchar(20) NOT NULL,
-	celular FLOAT(20) NOT NULL,
+	celular varchar(20) NOT NULL,
 	PRIMARY KEY (cedula)
 );
 
@@ -58,9 +56,8 @@ CREATE TABLE HISTORICO_CLIENTE (
 	cedula BIGINT(20)  NOT NULL,
 	nombres varchar(20) NOT NULL,
     apellidos varchar(20) NOT NULL,
-	celular FLOAT(20) NOT NULL,
-	fecha_eliminacion DATE NOT NULL,
-	PRIMARY KEY (cedula)
+	celular varchar(20) NOT NULL,
+	fecha_eliminacion DATE NOT NULL
 );
 
 CREATE TABLE TIPO_VEHICULO (
@@ -80,8 +77,7 @@ CREATE TABLE HISTORICO_VEHICULO (
 	placa_vehiculo varchar(7) NOT NULL,
     id_tipo_vehiculo INT(1) NOT NULL,
 	id_propietario BIGINT(20) NOT NULL,
-	fecha_eliminacion DATE NOT NULL,
-	PRIMARY KEY (placa_vehiculo)
+	fecha_eliminacion DATE NOT NULL
 );
 
 ALTER TABLE VEHICULO ADD FOREIGN KEY (id_tipo_vehiculo) REFERENCES TIPO_VEHICULO(id_tipo);
@@ -213,31 +209,33 @@ INSERT INTO TIPO_LAVADO (id_tipo,descripcion_lavado) VALUES
 (3,'ESPECIAL');
 
 INSERT INTO CLIENTE  (cedula,nombres,apellidos,celular) VALUES
-(1152462000,'DAVID','RAMIREZ',3234444112),
-(1152132122,'SIMON','VANEGAS',3002132211),
-(10251123523,'ROISON','ANGULO',3002132233);
+(1152462000,'DAVID','RAMIREZ',"3234444112"),
+(1152132122,'SIMON','VANEGAS',"3002132211"),
+(10251123523,'ROISON','ANGULO',"3002132233"),
+(1000350569, "JEAN CARLOS", "GONZALEZ", "3052304947");
 
 INSERT INTO HISTORICO_CLIENTE  (cedula,nombres,apellidos,celular, fecha_eliminacion) VALUES
-(1152462000,'DAVID','RAMIREZ',3234444112,"2023-11-09"),
-(1152132122,'SIMON','VANEGAS',3002132211,"2023-11-09"),
-(10251123523,'ROISON','ANGULO',3002132233,"2023-11-09");
+(1152462000,'DAVID','RAMIREZ',"3234444112","2023-11-09"),
+(1152132122,'SIMON','VANEGAS',"3002132211","2023-11-09"),
+(10251123523,'ROISON','ANGULO',"3002132233","2023-11-09");
 
 INSERT INTO EMPLEADO (cedula,nombres,apellidos,celular,id_tipo_empleado) VALUES
-(10251123521,'JEAN','PEREZ',3002536221,1),
-(10251123526,'STIVEN','ANGULO',3002536221,2),
-(11524620011,'DAVID','PEREA',3002536221,3);
+(10251123521,'JEAN','PEREZ',"3002536221",1),
+(10251123526,'STIVEN','ANGULO',"3002536221",2),
+(11524620011,'DAVID','PEREA',"3002536221",3);
 
 INSERT INTO HISTORICO_EMPLEADO (cedula,nombres,apellidos,celular,id_tipo_empleado, fecha_eliminacion) VALUES
-(10251123521,'JEAN','PEREZ',3002536221,1,"2023-11-09"),
-(10251123526,'STIVEN','ANGULO',3002536221,2,"2023-11-09"),
-(11524620011,'DAVID','PEREA',3002536221,3,"2023-11-09");
+(10251123521,'JEAN','PEREZ',"3002536221",1,"2023-11-09"),
+(10251123526,'STIVEN','ANGULO',"3002536221",2,"2023-11-09"),
+(11524620011,'DAVID','PEREA',"3002536221",3,"2023-11-09");
 
 INSERT INTO USUARIO (id_usuario,nick,clave) VALUES
 (1152462000,'DAVID.RAMIREZ','1234'),
 (1152132122,'SIMON.VANEGAS','4321'),
 (10251123521,'JEAN.PEREZ','1122'),
 (10251123523,'ROISON.ANGULO','1133'),
-(10251123526,'STIVEN.ROLDAN','2211');
+(10251123526,'STIVEN.ROLDAN','2211'),
+(1000350569, "JEAN.GONZALEZ", "1234");
 
 INSERT INTO HISTORICO_USUARIO (id_usuario,nick,clave, fecha_eliminacion) VALUES
 (1152462000,'DAVID.RAMIREZ','1234',"2023-11-09"),
@@ -249,7 +247,8 @@ INSERT INTO HISTORICO_USUARIO (id_usuario,nick,clave, fecha_eliminacion) VALUES
 INSERT INTO VEHICULO (placa_vehiculo,id_tipo_vehiculo,id_propietario) VALUES
 ('TEX001',1,1152462000),
 ('ABC12A',2,1152132122),
-('ABC245',1,10251123523);
+('ABC245',1,10251123523),
+('ABC123',1,1000350569);
 
 INSERT INTO HISTORICO_VEHICULO (placa_vehiculo,id_tipo_vehiculo,id_propietario, fecha_eliminacion) VALUES
 ('TEX001',1,1152462000,"2023-11-09"),
@@ -281,7 +280,8 @@ INSERT INTO PARQUEADERO (id_celda,id_tipo_celda,id_estado_celda) VALUES
 INSERT INTO RESERVA (fecha_reserva,placa_vehiculo,id_celda,fecha_ingreso,fecha_salida) VALUES
 ('2023-11-09','TEX001',1,null,null),
 ('2023-11-08','ABC12A',11,null,null),
-('2023-11-07','ABC245',2,null,null);
+('2023-11-07','ABC245',2,null,null),
+('2023-11-27','ABC123',3,null,null);
 
 INSERT INTO HISTORICO_RESERVA (fecha_reserva,placa_vehiculo,id_celda,fecha_ingreso,fecha_salida, fecha_eliminacion) VALUES
 ('2023-11-09','TEX001',1,null,null,"2023-11-09"),
@@ -301,10 +301,11 @@ INSERT INTO HISTORICO_LAVADERO (placa_vehiculo,fecha_solicitud,id_tipo_lavado,ta
 INSERT INTO FACTURACION (id_reserva,id_solicitud_lavado,fecha,valor_total,id_cliente) VALUES
 (1,null,'2023-11-09',null,1152462000),
 (null,1,'2023-11-10',25000,1152132122),
-(3,3,'2023-11-07',50000,10251123523);
+(3,3,'2023-11-07',50000,10251123523),
+(4,null,'2023-11-27',null,1000350569);
 
 
 INSERT INTO HISTORICO_FACTURACION (id_reserva,id_solicitud_lavado,fecha,valor_total,id_cliente,fecha_eliminacion) VALUES
-(1,null,'2023-11-09',null,1152462000,"2023-11-09"),
+(1,null,'2023-11-09',null,1152462000,"2023-11-09 "),
 (null,1,'2023-11-10',25000,1152132122,"2023-11-09"),
 (3,3,'2023-11-07',50000,10251123523,"2023-11-09");

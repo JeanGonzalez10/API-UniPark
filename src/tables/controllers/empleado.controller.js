@@ -72,6 +72,49 @@ const updateEmpleado = async (req, res) => {
 const deleteEmpleado = async (req, res) => {
 	try {
 		const { cedula } = req.params;
+
+		const [empleado] = await pool.query(
+			"SELECT * FROM EMPLEADO WHERE cedula = ?",
+			[cedula]
+		);
+		await pool.query(
+			"INSERT INTO HISTORICO_EMPLEADO (cedula, nombres, apellidos, celular, id_tipo_empleado, fecha_eliminacion) VALUES (?, ?, ?, ?, ?, ?)",
+			[
+				empleado[0].cedula,
+				empleado[0].nombres,
+				empleado[0].apellidos,
+				empleado[0].celular,
+				empleado[0].id_tipo_empleado,
+				getfecha(),
+			]
+		);
+
+		const [usuario] = await pool.query(
+			"SELECT * FROM USUARIO WHERE id_usuario = ?",
+			[cedula]
+		);
+
+		await pool.query(
+			"INSERT INTO HISTORICO_USUARIO (id_usuario, nick, clave, fecha_eliminacion) VALUES (?, ?, ?, ?)",
+			[usuario[0].id_usuario, usuario[0].nick, usuario[0].clave, getfecha()]
+		);
+
+		await pool.query("DELETE FROM USUARIO WHERE id_usuario = ?", [cedula]);
+
+		if (empleado[0].id_tipo_empleado === 3) {
+			const [lavadero] = await pool.query(
+				"SELECT * FROM LAVADERO WHERE id_empleado = ?",
+				[cedula]
+			);
+
+			if (lavadero.length !== 0) {
+				await pool.query(
+					"UPDATE LAVADERO SET id_empleado = ? WHERE id_solicitud = ?",
+					[null, id]
+				);
+			}
+		}
+
 		const [result] = await pool.query("DELETE FROM EMPLEADO WHERE cedula = ?", [
 			cedula,
 		]);
@@ -83,6 +126,14 @@ const deleteEmpleado = async (req, res) => {
 	} catch (er) {
 		res.status(500).json({ message: "Error en el servidor", error: er });
 	}
+};
+
+const getfecha = () => {
+	const date = new Date();
+	const year = date.getFullYear();
+	const month = date.getMonth() + 1;
+	const day = date.getDate();
+	return `${year}-${month}-${day}`;
 };
 
 export {
